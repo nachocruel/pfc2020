@@ -23,7 +23,7 @@ export class CondominioSelectComponent implements OnInit {
       selectMunicipio: ['']
     })   
 
-    this.http.get('/appPFC/api/pais').subscribe((countries)=>{   
+    this.http.get('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/pais').subscribe((countries)=>{   
          self.countryList = countries
          self.selectCountry = this.countryList[0]   
          self.formCountry = this.formBuilder.group({
@@ -32,7 +32,7 @@ export class CondominioSelectComponent implements OnInit {
           selectMunicipio: [this.countryList[0].estados[0].municipios[0]]
         })
 
-        this.http.post('/appPFC/api/device/get_lista_especifica', 
+        this.http.post('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/device/get_lista_especifica', 
            {
              codigo_pais:this.countryList[0].codigo,
              codigo_estado:this.countryList[0].estados[0].codigo,
