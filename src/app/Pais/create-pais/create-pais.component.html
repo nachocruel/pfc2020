@@ -1,0 +1,135 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="main-card mb-3 card">
+  <div class="row"></div>
+  <div class="card-body" [ngStyle]="{'display': disDiv1}">
+    <h5 class="card-title">Selecione o país</h5>
+    <form [formGroup]="formContry" (ngSubmit)="onSubmit()">
+       <div class="form-row mb-3"> 
+          <div class="position-relative form-group col-md-6">
+            <label for="selectPais">Pais</label>
+             <select name="selectName" id="selectPais" class="form-control" formControlName="name" (change)="selectChange()">
+                <option *ngFor="let p of countryList">{{p.name}}</option>
+             </select>
+          </div>
+         
+         <div class="position-relative form-group col-md-6">
+            <label for="codigoPais">Código</label>
+            <input type="text" class="form-control" id="codigoPais" name="codigo" formControlName="codigo" value="{{selectCountry.codigo}}">
+         </div>
+
+         <div class="position-relative form-group col-md-6">
+             <label for="countryLanguage">Idioma</label>
+             <input type="text" class="form-control" id="countryLanguage" name="language" formControlName="language" value="{{selectCountry.language}}"> 
+         </div>
+       </div>
+    </form>
+  </div>
+  <div class="card-body" [ngStyle]="{'display': disDiv2}">
+      <h5 class="card-title">Vincular estados ao pais</h5>
+      <form [formGroup]="formEstado" (ngSubmit)="addEstado()">
+        <div class="form-row">
+          <div class="col-md-6">
+             <div class="position-relative form-group">
+               <label for="codigoEstado">Código do estado</label>
+               <input id="codigoEstado" type="text" class="form-control" name="codigoEstado" formControlName="codigo">
+               <div class="alert alert-danger" *ngIf="invalidCodigoEstado()">Código do estado é obrigatório</div>
+             </div>
+          </div>
+          <div class="col-md-6">
+             <div class="position-relative form-group">
+               <label for="estadoName">Nome do estado</label>
+               <input type="text" name="estadoName" class="form-control" formControlName="name">
+               <div class="alert alert-danger" *ngIf="invalidNomeEstado()">Nome do estado é obrigatório</div>
+             </div>
+          </div>
+          <div class="col-md-6">
+            <div class="position-relative form-group">
+              <label for="codigo_pais">Código do país</label>
+              <input id="codigo_pais" type="text" class="form-control" name="codigo_pais" formControlName="codigo_pais" readonly>
+            </div>
+         </div>
+         <div class=col-md-6>
+            <button class="mt-2 btn btn-primary" style="padding: 17px;">Adicionar Estado</button>
+         </div>
+          <div class="col-md-12">
+            <div class="position-relative form-group"><label for="selectEsados">
+              Estados:</label><select multiple="multiple" type="select"
+                                                      id="selectEsados"
+                                                      name="customSelect" disabled="disabled"
+                                                      class="custom-select">
+              <option *ngFor="let e of selectCountry.estados">{{ e.name }}</option>
+            </select></div>
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="card-body" [ngStyle]="{'display': disDiv3}">
+    <h5 class="card-title">Vincular municipio ao estado</h5>
+    <form [formGroup]="formMunicipio" (ngSubmit)="addMunicipio()">
+        <div class="form-row">
+           <div class="col-md-6">
+              <div class="position-relative form-group">
+                  <label for="selectExampleEstado">Estado:</label>
+                  <select type="select" class="form-control" id="selectExampleEstado" name="selectExampleEstado" formControlName="codigo_estado" (change)="estadoChange()">
+                    <option *ngFor="let e of selectCountry.estados" value="{{e.codigo}}">{{e.name}}</option>
+                  </select>        
+              </div>
+           </div>
+           <div class="col-md-6">
+             <div class="position-relative form-group">
+                <label for="codigoMunicipio">Codigo Municipio</label>
+                <input type="text" name="codigoMunicipio" class="form-control" id="codigoMunicipio" formControlName="codigo">
+               <div class="alert alert-danger" *ngIf="invalidCodigMunicipio()">O código do municipio é obrigatório</div>
+              </div>
+           </div>
+           <div class="col-md-6">
+              <div class="position-relative form-group">
+                <label for="municipioName">Nome do municipio</label>
+                <input type="text" id="municipioName" class="form-control" formControlName="name">
+                <div class="alert alert-danger" *ngIf="invalidNomeMunicipio()">
+                  O nome do municipio é obrigatório
+                </div>
+              </div>
+           </div>
+           <div class=col-md-6>
+            <button class="mt-2 btn btn-primary" style="padding: 17px;">Adicionar Municipio</button>
+           </div>
+           <div class="col-md-12">
+            <div class="position-relative form-group"><label for="selectMunicipio">
+              Municipios:</label><select *ngIf="selectEstado" multiple="multiple" type="select"
+                                                      id="selectMunicipio"
+                                                      name="selectMunicipio" disabled="disabled"
+                                                      class="custom-select">
+              <option  *ngFor="let e of selectEstado.municipios">{{ e.name }}</option>
+            </select></div>
+          </div>
+        </div>
+    </form>
+  </div>
+
+  <!--Page 4-->
+  <div class="card-body" [ngStyle]="{'display': disDiv4}">
+    <h5 class="card-title">Verifique os dados clique em salvar.</h5>
+    <h3>Pais</h3>
+    <p>Código: {{selectCountry.codigo}}</p>
+    <p>Nome: {{selectCountry.name}}</p>
+    <p>Idioma: {{selectCountry.language}}</p>
+    <h3>Estados</h3>
+    <div *ngFor="let estado of selectCountry.estados">
+      <p>Código: {{estado.codigo}}</p>
+      <p>Nome: {{estado.name}}</p>
+      <h2>Municipios</h2>
+      <div *ngFor="let municipio of estado.municipios">
+         <p>Código: {{municipio.codigo}}</p>
+         <p>Nome: {{municipio.name}}</p>
+      </div>
+      <hr>
+    </div>
+    <button class="mt-2 btn btn-primary" style="padding: 17px;" (click)="Salvar()">Adicionar Municipio</button>
+  </div>
+  <div class="input-group">
+    <div class="input-group-prepend"><span class="input-group-text" (click)="voltar()">Voltar</span></div>
+    <input type="text" class="form-control" disabled>
+    <div class="input-group-append"><span class="input-group-text" (click)="proximo()" *ngIf="page < 4">Próximo</span></div>
+  </div>
+</div>

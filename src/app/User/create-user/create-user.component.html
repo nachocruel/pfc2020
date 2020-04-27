@@ -1,0 +1,59 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="main-card mb-3 card">
+   <div class="card-body">
+     <h5 class="card-title">Cadastrar Usuário</h5>
+      <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+          <div class="form-row mb-3">
+            <div class="card col-md-2 form-group" style="text-align: center;">
+               <h6 class="card-title">Foto Perfil</h6>
+               <div style="position: relative; margin: auto;">
+                  <video #video id="video" width="120" height="120" autoplay class="card"></video>
+                  <canvas #canvas id="canvas" width="120" height="120" style="display: none;"></canvas>
+                  <button class="mt-2 btn btn-primary" type="button" (click)="Capturar()">Capturar</button>
+               </div>    
+            </div>
+            <div class="col-md-10 row">
+               <div class="position-relative form-group col-md-6"><label for="exampleEmail">Email</label><input name="email"
+                  id="exampleEmail"
+                  placeholder="E-mail..."
+                  type="email"
+                  class="form-control" formControlName="email">
+                  <div class="alert alert-danger" *ngIf="invalidEmail()">Email inválido</div>
+                </div>
+                <div class="position-relative form-group col-md-6"><label for="exampleName">Nome do Usuário</label><input name="email"
+                  id="exampleName"
+                  placeholder="Nome completo"
+                  type="text"
+                  class="form-control" formControlName="name">
+                  <div class="alert alert-danger" *ngIf="invalidFullName()">Campo nome é obrigatório</div>
+               </div> 
+
+               <div class="position-relative form-group col-md-6"><label for="InfoSenha">Senha</label><input
+                  name="password" id="InfoSenha" placeholder="Informe a senha" type="password"
+                  class="form-control" formControlName="password">
+                  <div class="alert alert-danger" *ngIf="invalidPassword()">A senha é obrigatório</div>
+               </div>
+               <div class="position-relative form-group col-md-6"><label for="repeatSenha">Repitir Senha</label><input
+                     name="password" id="repeatSenha" placeholder="Repita a Senha" type="password"
+                     class="form-control" formControlName="passwordReapt">
+                     <div class="alert alert-danger" *ngIf="invalidPasswordConfimation()">Confirmação de senha não confere</div>
+               </div>
+               <div class="col-md-6">
+                  <div class="position-relative form-group"><label for="selectProfile">Perfil</label>
+                     <select name="select" id="selectProfile" class="form-control" formControlName="profile">
+                        <option *ngFor="let p of profiles">{{p}}</option>
+                     </select>
+                   </div>
+               </div>
+            </div>          
+            <div class="position-relative form-group col-md-12" style="display: none;">
+                  <input type="text" formControlName="img_profile" value="{{profileUrl}}" name="img_profile">
+            </div>    
+          </div>
+          <div class="alert alert-success" *ngIf="userCreated">Usuário cadastrado com sucesso!</div>
+          <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+          <button class="mt-2 btn btn-primary" type="submit">Cadastrar Usuário</button>
+      </form>
+   </div>
+
+</div>

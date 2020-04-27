@@ -1,0 +1,6 @@
+[0323/235024.719:ERROR:crashpad_client_win.cc(505)] CreateProcess: O arquivo de paginação é muito pequeno para que esta operação seja concluída. (0x5AF)
+[0324/005220.638:ERROR:process_info.cc(359)] UncheckedAllocate
+[0404/131801.825:ERROR:process_info.cc(359)] UncheckedAllocate
+[0404/132042.083:ERROR:process_info.cc(359)] UncheckedAllocate
+[0404/135237.772:ERROR:process_info.cc(359)] UncheckedAllocate
+[0404/135238.093:ERROR:process_info.cc(359)] UncheckedAllocate

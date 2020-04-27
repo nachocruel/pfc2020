@@ -1,0 +1,51 @@
+<div class="h-100 bg-plum-plate bg-animation">
+  <div class="d-flex h-100 justify-content-center align-items-center">
+    <div class="mx-auto app-login-box col-md-8">
+      <!--class="app-logo-inverse mx-auto mb-3"-->
+      <div class="" style="position: absolute; left: 0;right: 0;color:aliceblue; font-size: 20px; text-align: center;">PFC 2020 1</div>
+      <div class="modal-dialog w-100 mx-auto">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="h5 modal-title text-center">
+              <h4 class="mt-2">
+                <div>Seja bem-vindo,</div>
+                <span>Digite o seu login e senha.</span></h4>
+            </div>
+            <div id="exampleInputGroup1" role="group" aria-describedby="exampleInputGroup1__BV_description_"
+                 class="form-group">
+              <div><input id="exampleInput1" type="email" placeholder="Digite o email..." required="required"
+                          aria-required="true" class="form-control"
+                          aria-describedby="exampleInputGroup1__BV_description_" [(ngModel)]="email">
+              </div>
+            </div>
+            <div id="exampleInputGroup2" role="group" class="form-group">
+              <div><input id="exampleInput2" type="password" placeholder="Digite a Senha..." required="required"
+                          aria-required="true" class="form-control" [(ngModel)]="senha"></div>
+            </div>
+            <div class="custom-control custom-checkbox"><input id="exampleCheck" type="checkbox" name="check"
+                                                               autocomplete="off" class="custom-control-input"
+                                                               value="true"><label for="exampleCheck"
+                                                                                   class="custom-control-label">
+              Me mantenha logado
+            </label></div>
+            <div class="alert alert-danger" role="alert" *ngIf="msgErro">
+              {{msgErro}}
+            </div>
+            <div class="divider"></div>
+           <!-- <h6 class="mb-0">
+              No account?
+              <a [routerLink]="" class="text-primary">Sign up now</a></h6></div>-->
+          <div class="modal-footer clearfix">
+            <div class="float-left"><a [routerLink]="" class="btn-lg btn btn-link">Recuperar Senha</a></div>
+            <div class="float-right">
+              <button type="button" class="btn btn-primary btn-lg" (click)="onClick()">Efetuar Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-white opacity-8 mt-3">
+        Copyright © pfc 2020
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{
+
+    "/appPFC/api/*": { 
+      "target": "https://us-central1-my-fps.cloudfunctions.net",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  
+  }

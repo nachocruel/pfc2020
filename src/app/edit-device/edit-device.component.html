@@ -1,0 +1,188 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="main-card mb-3 card">
+    <div class="card-body"><h5 class="card-title">Dispositivo: {{ device._id }}</h5>
+    <form [formGroup]="formDevice" (ngSubmit)="editDevice()">
+        <div class="form-row">
+            <!-- id dispositivo -->
+            <div class="col-md-6">
+              <div class="position-relative form-group">
+                  <label for="_id">Device</label>
+                  <input 
+                     name="_id"  id="_id"
+                     type="text" class="form-control" 
+                     formControlName="_id"
+                  >
+              </div>
+            </div>
+
+            <!--cls dispositivo-->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="_cls">Cls</label>
+                    <input 
+                       name="_cls"  id="_cls"
+                       type="text" class="form-control" 
+                       formControlName="_cls"
+                    >
+                </div>
+            </div>
+
+            <!-- Temperatura máxima do ambiente-->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="max_temperature">Temperatura máxima ambiente Cº</label>
+                    <input
+                      name="max_temperature"
+                      type="number"
+                      class="form-control"
+                      formControlName="max_temperature"
+                    >
+                </div>
+            </div>
+
+            <!-- Temperatura máxima do dispositivo -->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="device_max_temperature">Temperatura máxima do dispositivo Cº</label>
+                    <input
+                      name="device_max_temperature"
+                      type="number"
+                      class="form-control"
+                      formControlName="device_max_temperature"
+                    >
+                </div>
+            </div>
+            
+            <!-- Umidade mínima do ambiente-->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                 <label for="low_humidity">Úmidade mínima do ambiente</label>
+                 <input
+                 name="low_humidity"
+                 type="number"
+                 class="form-control"
+                 formControlName="low_humidity"
+                 >
+                </div>
+            </div>
+
+            <!-- Concentração máxima de CO2 -->
+            <div class="col-md-6">
+               <div class="position-relative form-group">
+                   <label for="max_gas">Quantidade máxima de CO2</label>
+                   <input 
+                     name="max_gas"
+                     type="number"
+                     class="form-control"
+                     formControlName="max_gas"
+                   >
+               </div>
+            </div>
+
+            <!--Latitude do dispositivo-->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                   <label for="latitude">Latitude</label>
+                   <input
+                     name="latitude"
+                     type="text"
+                     class="form-control"
+                     formControlName="latitude"
+                   >
+                </div>
+            </div>
+
+            <!--Longitude do dispositivo-->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                   <label for="longitude">Longitude</label>
+                   <input
+                     name="longitude"
+                     type="text"
+                     class="form-control"
+                     formControlName="longitude"
+                   >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="id_fire">ID</label>
+                     <input 
+                       name="id_fire"
+                       type="text"
+                       class="form-control"
+                       formControlName="id_fire"
+                     >
+                </div>
+            </div>
+
+            <!-- Zona do dispositivo-->
+            <div class="col-md-6">
+               <div class="position-relative form-group">
+                   <label for="zona">Zona</label>
+                   <input
+                     name="zona"
+                     type="text"
+                     class="form-control"
+                     formControlName="zona"
+                   >
+               </div>
+            </div>
+
+            <!--Código do pais-->
+            <div class="col-md-6">
+               <div class="position-relative form-group">
+                    <label for="codigo_pais">Código do país</label>
+                    <input
+                      name="codigo_pais"
+                      type="text"
+                      class="form-control"
+                      formControlName="codigo_pais"
+                    >
+               </div>
+            </div>
+
+            <!--Código do estado-->
+            <div class="col-md-6">
+             <div class="position-relative form-group">
+                <label for="codigo_estado">Código do Estado</label>
+                <input
+                  name="codigo_estado"
+                  type="text"
+                  class="form-control"
+                  formControlName="codigo_estado"
+                >
+             </div>
+            </div>
+
+            <!--Código do Municipio-->
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="codigo_municipio">Código do Municipio</label>
+                    <input
+                      name="codigo_municipio"
+                      type="text"
+                      class="form-control"
+                      formControlName="codigo_municipio"
+                    >
+                </div>
+            </div>
+
+            <!--Tipo dispositivo-->
+            <div class="col-md-6">
+               <div class="position-relative form-group">
+                  <label for="tipo_dispositivo">Tipo do Dispositivo</label>
+                  <input
+                    name="tipo_dispositivo"
+                    type="text"
+                    class="form-control"
+                    formControlName="tipo_dispositivo"
+                  >
+               </div>
+            </div>
+          </div>
+          <button type="submit" class="mt-2 btn btn-primary">Editar</button>
+    </form>
+  </div>
+  <div class="mb-3" *ngIf="mensagem" [ngClass]="{'alert alert-success': updated === true, 'alert alert-danger': updated === false}">{{ mensagem }}</div>
+</div>

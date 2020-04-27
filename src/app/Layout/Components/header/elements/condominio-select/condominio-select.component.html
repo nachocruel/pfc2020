@@ -1,0 +1,18 @@
+    <form [formGroup]="formCountry" class="form-inline">
+      <div class="form-group">
+        <select *ngIf="selectCountry" class="form-control" (change)="selectCountryChange()" formControlName="selectPais">
+          <option *ngFor="let country of countryList" [ngValue]="country">{{country.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select *ngIf="selectCountry" class="form-control" (change)="selectEstateChange()" formControlName="selectEstado">
+          <option *ngFor="let state of selectCountry.estados" [ngValue]="state">{{state.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select *ngIf="selectCountry" class="form-control" (change)="selectMunicipioChange()" formControlName="selectMunicipio">
+          <option *ngFor="let municipio of selectCountry.estados[0].municipios" [ngValue]="municipio">{{municipio.name}}</option>
+       </select> 
+      </div> 
+    </form>
+
