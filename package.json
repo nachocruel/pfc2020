@@ -1,9 +1,10 @@
 {
-  "name": "architectui-angular-free",
+  "name": "pfc2020",
   "version": "0.0.0",
   "scripts": {
+    "heroku-postbuild": "ng build --prod",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -39,16 +40,23 @@
     "chartjs-adapter-luxon": "^0.1.1",
     "chartjs-plugin-annotation": "^0.5.7",
     "chartjs-plugin-datalabels": "^0.6.0",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "lodash-es": "^4.17.11",
     "ng-bootstrap": "^1.6.3",
     "ng2-charts": "^2.2.2",
     "ngx-perfect-scrollbar": "^7.2.1",
+    "path": "^0.12.7",
     "pe7-icon": "^1.0.4",
     "redux": "4.0.0",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
+    "typescript": "~3.7.5",
     "zone.js": "~0.10.2"
+  },
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.14.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
@@ -60,6 +68,9 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "cross-env": "^5.0.5",
+    "enhanced-resolve": "^3.3.0",
+    "increase-memory-limit": "^1.0.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",
@@ -70,8 +81,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.7.5",
-    "increase-memory-limit": "^1.0.3",
-    "cross-env": "^5.0.5"
+    "typescript": "~3.7.5"
   }
 }
