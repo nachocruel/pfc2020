@@ -93,7 +93,7 @@ export class CreateUserComponent implements OnInit {
     }else{
       delete this.formUser.value['passwordReapt']
       var user = new User(this.formUser.value)
-      this.http.post('/api/user', user).subscribe((data)=>{
+      this.http.post('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/user', user).subscribe((data)=>{
         this.userCreated = true
         setTimeout(() => {
           this.userCreated = false

@@ -171,16 +171,16 @@ export class CreatePaisComponent implements OnInit {
 
 
   Salvar(){
-     this.http.post('/api/pais', this.selectCountry).subscribe(async (pais)=>{
+     this.http.post('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/pais', this.selectCountry).subscribe(async (pais)=>{
         console.log('pais salvo com sucesso')
         for(let estado of this.selectCountry.estados)
         {
           for(let municipio of estado.municipios){
-             await this.http.post('/api/municipio', municipio).subscribe((municipio)=>{
+             await this.http.post('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/municipio', municipio).subscribe((municipio)=>{
                console.log('municipio Salvo com sucesso')
              })
           }
-             await this.http.post('/api/estado', estado).subscribe((estado)=>{
+             await this.http.post('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/estado', estado).subscribe((estado)=>{
                 console.log('estado salvo com sucesso')
              })
         }
