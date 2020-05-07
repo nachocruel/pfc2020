@@ -53,7 +53,7 @@ export class EditDeviceComponent implements OnInit {
        this.updated = false
        this.mensagem = "Campos obrigatórios não foram preenchidos!"   
      }else{
-        this.http.put(`https://us-central1-my-fps.cloudfunctions.net/appPFC/api/device/${editedDevice._id}`, editedDevice).subscribe((data:any)=>{
+        this.http.put(`https://pfc2020-api.herokuapp.com/api/device/${editedDevice._id}`, editedDevice).subscribe((data:any)=>{
           var deviceList = JSON.parse(localStorage.getItem('deviceList')) 
           if(deviceList){
             for(let device of deviceList){

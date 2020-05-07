@@ -19,7 +19,7 @@ export class LoginBoxedComponent implements OnInit {
 
   onClick(){
     if(this.email && this.senha){
-      this.http.post('https://us-central1-my-fps.cloudfunctions.net/appPFC/api/user/logar', {email:this.email, password: this.senha}).subscribe((data:any)=>{
+      this.http.post('https://pfc2020-api.herokuapp.com/api/user/logar', {email:this.email, password: this.senha}).subscribe((data:any)=>{
         console.log(data)
         if(data.result){
               this.msgErro = null;
