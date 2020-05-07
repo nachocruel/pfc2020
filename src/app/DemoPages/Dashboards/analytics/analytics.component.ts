@@ -177,13 +177,13 @@ export class AnalyticsComponent implements OnInit {
       })
     }, 1000)
     
-    this.http.get('https://pfc2020-api.herokuapp.com/api/medicao/get_medicao_alert').subscribe((medicaoResult:any)=>{
+    this.http.get('/medicao/get_medicao_alert').subscribe((medicaoResult:any)=>{
         this.alertEmergenceList = medicaoResult.data
     }, (error)=>{
        console.log(error)
     })
 
-    this.http.get('https://pfc2020-api.herokuapp.com/api/medicao/get_medicao_normal').subscribe((medicaoResult:any)=>{
+    this.http.get('/medicao/get_medicao_normal').subscribe((medicaoResult:any)=>{
         this.medicoesRequisicao = medicaoResult.data
         console.log('vid: ',JSON.stringify(medicaoResult.data[0].vid))
     }, (error)=>{
@@ -238,7 +238,7 @@ export class AnalyticsComponent implements OnInit {
   data_medicao:String
   open(content, device) {
     let self = this
-    this.http.post('https://pfc2020-api.herokuapp.com/api/device/get_last_medicao', device).subscribe((medicao:any)=>{
+    this.http.post('/device/get_last_medicao', device).subscribe((medicao:any)=>{
        if(medicao.success){
          this.temperatura_ambiente = medicao.last_temperature1
          this.temperatura_ambiente2 = medicao.last_temperature2
@@ -274,7 +274,7 @@ export class AnalyticsComponent implements OnInit {
   deviceAtual:any = null
   serchDevice(content1, id_dispositivo){
     let self = this
-    this.http.get(`https://pfc2020-api.herokuapp.com/api/device/${id_dispositivo}`).subscribe((device:any)=>{
+    this.http.get(`/device/${id_dispositivo}`).subscribe((device:any)=>{
          self.deviceAtual = device
     })
     

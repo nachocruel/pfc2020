@@ -1,0 +1,8 @@
+{
+    "/api/*": { 
+      "target": "https://pfc2020-api.herokuapp.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    } 
+}
