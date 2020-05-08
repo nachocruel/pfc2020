@@ -4,6 +4,92 @@ import {Color} from 'ng2-charts/ng2-charts';
 import {Router} from '@angular/router'
 import { Observable } from 'rxjs'
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { PubNub } from "../../../../../node_modules/pubnub"
+
+const pubnub = new PubNub({
+  publishKey: "pub-c-e5c8e409-367f-4eb2-8d95-0d93e5fdfd8b",
+  subscribeKey:"sub-c-4c1671dc-347a-11ea-b8ef-b6462cb07a90",
+  ssl:true
+});
+
+pubnub.subscribe({
+  channels: ['chan-1'],
+});
+
+pubnub.addListener({
+  message: function(m) {
+      var channelName = m.channel; // The channel for which the message belongs
+      var channelGroup = m.subscription; // The channel group or wildcard subscription match (if exists)
+      var pubTT = m.timetoken; // Publish timetoken
+      var msg = m.message; // The Payload
+      var publisher = m.publisher; //The Publisher
+      
+      if(channelName === 'chan-1'){
+         var id_medicao = msg.message.split("\n")[2].trim()
+         this.http.get(`https://pfc2020-api.herokuapp.com/api/medicao/${id_medicao}`).subscribe((medicao:any)=>{
+             if(!this.alertEmergenceList)
+                 this.alertEmergenceList = []
+             this.alertEmergenceList.unshift(medicao)
+         }, (error)=>{
+             console.log(error)
+          })
+      }
+  },
+  presence: function(p) {
+      // handle presence
+      var action = p.action; // Can be join, leave, state-change or timeout
+      var channelName = p.channel; // The channel for which the message belongs
+      var occupancy = p.occupancy; // No. of users connected with the channel
+      var state = p.state; // User State
+      var channelGroup = p.subscription; //  The channel group or wildcard subscription match (if exists)
+      var publishTime = p.timestamp; // Publish timetoken
+      var timetoken = p.timetoken;  // Current timetoken
+      var uuid = p.uuid; // UUIDs of users who are connected with the channel
+  },
+  signal: function(s) {
+      // handle signal
+      var channelName = s.channel; // The channel for which the signal belongs
+      var channelGroup = s.subscription; // The channel group or wildcard subscription match (if exists)
+      var pubTT = s.timetoken; // Publish timetoken
+      var msg = s.message; // The Payload
+      var publisher = s.publisher; //The Publisher
+  },
+  user: function(userEvent) {
+      // for Objects, this will trigger when:
+      // . user updated
+      // . user deleted
+  },
+  space: function(spaceEvent) {
+      // for Objects, this will trigger when:
+      // . space updated
+      // . space deleted
+  },
+  membership: function(membershipEvent) {
+      // for Objects, this will trigger when:
+      // . user added to a space
+      // . user removed from a space
+      // . membership updated on a space
+  },
+  messageAction: function(ma) {
+      // handle message action
+      var channelName = ma.channel; // The channel for which the message belongs
+      var publisher = ma.publisher; //The Publisher
+      var event = ma.message.event; // message action added or removed
+      var type = ma.message.data.type; // message action type
+      var value = ma.message.data.value; // message action value
+      var messageTimetoken = ma.message.data.messageTimetoken; // The timetoken of the original message
+      var actionTimetoken = ma.message.data.actionTimetoken; //The timetoken of the message action
+  },
+  status: function(s) {
+      var affectedChannelGroups = s.affectedChannelGroups; // The channel groups affected in the operation, of type array.
+      var affectedChannels = s.affectedChannels; // The channels affected in the operation, of type array.
+      var category = s.category; //Returns PNConnectedCategory
+      var operation = s.operation; //Returns PNSubscribeOperation
+      var lastTimetoken = s.lastTimetoken; //The last timetoken used in the subscribe request, of type long.
+      var currentTimetoken = s.currentTimetoken; //The current timetoken fetched in the subscribe response, which is going to be used in the next request, of type long.
+      var subscribedChannels = s.subscribedChannels; //All the current subscribed channels, of type array.
+  }
+});
 
 @Component({
   selector: 'app-analytics',
@@ -178,14 +264,26 @@ export class AnalyticsComponent implements OnInit {
     }, 1000)
     
     this.http.get('https://pfc2020-api.herokuapp.com/api/medicao/get_medicao_alert').subscribe((medicaoResult:any)=>{
-        this.alertEmergenceList = medicaoResult.data
+       if(medicaoResult.data){
+         if(this.alertEmergenceList ==  null)
+             this.alertEmergenceList = []
+          for(var emergencia of medicaoResult.data){
+            var add = true
+            for(var inserted of this.alertEmergenceList){
+                 if(inserted._id === emergencia._id)
+                    add = false
+            }
+
+            if(add)
+              this.alertEmergenceList.unshift(emergencia)
+          } 
+       }    
     }, (error)=>{
        console.log(error)
     })
 
     this.http.get('https://pfc2020-api.herokuapp.com/api/medicao/get_medicao_normal').subscribe((medicaoResult:any)=>{
         this.medicoesRequisicao = medicaoResult.data
-        console.log('vid: ',JSON.stringify(medicaoResult.data[0].vid))
     }, (error)=>{
         console.log(error)
     }) 
