@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types" : ["node", "lodash", "express"],
     "baseUrl": "./",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
